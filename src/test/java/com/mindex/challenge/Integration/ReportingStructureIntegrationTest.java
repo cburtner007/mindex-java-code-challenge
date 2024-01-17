@@ -40,5 +40,25 @@ public class ReportingStructureIntegrationTest {
         assertEquals(4, readStruct.getNumberOfReports());
 
     }
+
+    @Test
+    public void getRingoReportStruct() {
+        //
+        ReportingStructure readStruct = restTemplate.getForEntity(reportStructIdUrl,
+        		ReportingStructure.class,
+        		"03aa1462-ffa9-4978-901b-7c001562cf6f")
+        		.getBody();
+        assertEquals(2, readStruct.getNumberOfReports());
+    }
+    
+    @Test
+    public void getPeteReportStruct() {
+        //
+        ReportingStructure readStruct = restTemplate.getForEntity(reportStructIdUrl,
+        		ReportingStructure.class,
+        		"62c1084e-6e34-4630-93fd-9153afb65309")
+        		.getBody();
+        assertEquals(0, readStruct.getNumberOfReports());
+    }
 }
 
