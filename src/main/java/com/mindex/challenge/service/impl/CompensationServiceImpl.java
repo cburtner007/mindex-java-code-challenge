@@ -1,5 +1,8 @@
 package com.mindex.challenge.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +29,10 @@ public class CompensationServiceImpl implements CompensationService{
 	}
 
 	@Override
-	public Compensation read(String empId) {
+	public List<Compensation> readByEmpId(String empId) {
         LOG.debug("Finding compensation with emp id [{}]", empId);
 
-        Compensation compensation = compensationRepository.findByEmployeeId(empId);
+        List<Compensation> compensation = compensationRepository.findByEmployeeId(empId);
 
         if (compensation == null) {
             throw new RuntimeException("Invalid employeeId: " + empId);
@@ -43,6 +46,19 @@ public class CompensationServiceImpl implements CompensationService{
 		LOG.debug("Updating compensation [{}]", compensation);
 
 		return compensationRepository.save(compensation);
+	}
+
+	@Override
+	public Compensation read(String id) {
+        LOG.debug("Finding compensation with comp id [{}]", id);
+
+        Optional<Compensation> compensation = compensationRepository.findById(id);
+
+        if (compensation.isEmpty()) {
+            throw new RuntimeException("Invalid compensation id: " + id);
+        }
+
+        return compensation.get();
 	}
 
 }

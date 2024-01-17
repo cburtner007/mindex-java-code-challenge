@@ -23,12 +23,18 @@ public class ReportingStructureServiceImpl implements ReportingStructureService{
 		ReportingStructure rs =  new ReportingStructure(e);
 		return rs;
 	}
+	
 	private Employee readEmployeeRecursive(String empId){
 		Employee e = employeeService.read(empId);
+		
+		//Recursion continues if given node has children
 		if (e.getDirectReports() != null) {
+			//recurse through all child nodes
 			for (Employee report : e.getDirectReports()) {
 		        LOG.debug("Recursing into employee [{}]", report.getEmployeeId());
 				Employee recursedReport = readEmployeeRecursive(report.getEmployeeId());
+				
+				//While undwinding, build up direct reports of child nodes
 				if(recursedReport.getDirectReports() != null) {
 					report.setDirectReports(recursedReport.getDirectReports());
 				}
