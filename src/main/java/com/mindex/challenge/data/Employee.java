@@ -13,6 +13,11 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(String empId, String firstName) {
+    	this.employeeId = empId;
+    	this.firstName = firstName;
+    }
+    
     public String getEmployeeId() {
         return employeeId;
     }
@@ -57,7 +62,7 @@ public class Employee {
         return directReports;
     }
 
-    public void setDirectReports(List<Employee> directReports) {
-        this.directReports = directReports;
+    public void setDirectReports(List<Employee> employees) {
+        this.directReports = employees;
     }
 }
